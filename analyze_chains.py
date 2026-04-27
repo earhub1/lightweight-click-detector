@@ -10,7 +10,7 @@ from sklearn.preprocessing import RobustScaler
 # ------------------------------------------------------------------
 # Configuração
 # ------------------------------------------------------------------
-K = 4
+K = None  # será definido via argumento --k
 RANDOM_STATE = 42
 OUTPUT_PNG = os.path.join(os.path.dirname(__file__), "chains_kmeans_pca.png")
 
@@ -74,7 +74,9 @@ CLIP_COLS = LOG_COLS  # mesmas colunas recebem clipping antes do log
 # ------------------------------------------------------------------
 parser = argparse.ArgumentParser(description="KMeans + PCA 2D sobre all_chains.csv")
 parser.add_argument("csv_path", help="Caminho para o arquivo all_chains.csv")
+parser.add_argument("--k", type=int, default=4, help="Número de clusters do KMeans (padrão: 4)")
 args = parser.parse_args()
+K = args.k
 
 # ------------------------------------------------------------------
 # Tarefa 1 — Carregar e pré-processar
