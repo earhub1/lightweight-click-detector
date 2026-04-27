@@ -889,7 +889,11 @@ def build_click_chains(
             }
         )
 
-    return pd.DataFrame(rows, columns=columns)
+    # Não restringir pelo schema fixo `columns`, pois as features espectrais
+    # agregadas são adicionadas dinamicamente em cada dicionário de `rows`.
+    # Usar columns=columns aqui descartaria silenciosamente as novas colunas
+    # como mean_dominant_freq_hz, mean_band_energy_*, spectral_centroid_hz etc.
+    return pd.DataFrame(rows)
 
 def process_audio_file(
     file_path: Path,
